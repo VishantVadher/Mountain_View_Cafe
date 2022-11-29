@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "255333523087",
+    "project_id": "ecommerce-app-9479b",
+    "storage_bucket": "ecommerce-app-9479b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:255333523087:android:d8ad086dc81a59d6709afa",
+        "android_client_info": {
+          "package_name": "com.example.mountainviewcafe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "255333523087-5j2v03shsk8pqvms89b3aiu1q3vd3orc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3aXmi6U0ufa9apTLa-C2wQ6cQz1ou7P8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "255333523087-5j2v03shsk8pqvms89b3aiu1q3vd3orc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

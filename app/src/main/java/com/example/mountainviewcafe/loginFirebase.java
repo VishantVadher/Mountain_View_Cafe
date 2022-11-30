@@ -3,6 +3,7 @@ package com.example.mountainviewcafe;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -52,7 +53,6 @@ public class loginFirebase extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d("HEY", "Shaina is logged in!!!!!!!!!!!!!!!!!!!!!!!!1");
                 startSignin();
-
             }
         });
 
@@ -70,19 +70,32 @@ public class loginFirebase extends AppCompatActivity {
         } else {
             mauth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
 
-                if (!task.isSuccessful()) {
-                    Toast.makeText(loginFirebase.this, "User account dosen't exist", Toast.LENGTH_SHORT).show();
+                Log.d("EMAIL",  email);
+                Log.d("password",  password);
+
+                if (task.isSuccessful()) {
+//                    Toast.makeText(loginFirebase.this, "Signed in", Toast.LENGTH_SHORT).show();
+
+                    if( email.toString().equals("admin@mountainviewcafe.com") ) {
+
+                        startActivity(new Intent(getApplicationContext(), adminAddProducts.class ));
+                    } else {
+                        Toast.makeText(loginFirebase.this, "Logged in" + mauth.getCurrentUser(), Toast.LENGTH_LONG).show();
+                    }
+
                 } else {
-                    Toast.makeText(loginFirebase.this, "Signed in", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(loginFirebase.this, "User account dosen't exist", Toast.LENGTH_SHORT).show();
                 }
             });
         }
     }
 
-    @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
-//        mauth.addAuthStateListener(mauthListner);
+
+        if (mauth.getCurrentUser() != null) {
+            Toast.makeText(this, "User is already logged in !", Toast.LENGTH_SHORT).show();
+        }
     }
 
 

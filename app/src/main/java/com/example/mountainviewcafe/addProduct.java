@@ -2,8 +2,11 @@ package com.example.mountainviewcafe;
 
 public class addProduct {
 
-    private String title, description, image, price, discount;
+    public String title, description, image, price, discount;
 
+    public addProduct() {
+
+    }
 
     public addProduct(String title, String description, String image, String price, String discount) {
         this.title = title;

@@ -7,24 +7,90 @@
     tools:context=".adminAddProducts">
 
     <Button
-        android:id="@+id/clickPhoto"
+        android:id="@+id/addProduct"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="420dp"
-        android:text="Click Photo"
+        android:layout_marginBottom="28dp"
+        android:onClick="addProduct"
+        android:text="Add Product"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.552"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/discountEditText" />
 
     <ImageView
         android:id="@+id/viewClickedPic"
-        android:layout_width="228dp"
-        android:layout_height="289dp"
-        android:layout_marginTop="92dp"
+        android:layout_width="207dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/cameraClick"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.584"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <EditText
+        android:id="@+id/titleEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:ems="10"
+        android:hint="Title"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/descEditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cameraClick" />
+
+    <EditText
+        android:id="@+id/descEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="18dp"
+        android:ems="10"
+        android:hint="Description"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/priceEditText"
+        app:layout_constraintStart_toStartOf="@+id/titleEditText"
+        app:layout_constraintTop_toBottomOf="@+id/titleEditText" />
+
+    <EditText
+        android:id="@+id/priceEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="20dp"
+        android:ems="10"
+        android:hint="Price"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toTopOf="@+id/discountEditText"
+        app:layout_constraintEnd_toEndOf="@+id/descEditText"
+        app:layout_constraintTop_toBottomOf="@+id/descEditText" />
+
+    <EditText
+        android:id="@+id/discountEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginBottom="81dp"
+        android:ems="10"
+        android:hint="Discount"
+        android:inputType="numberSigned"
+        app:layout_constraintBottom_toTopOf="@+id/addProduct"
+        app:layout_constraintStart_toStartOf="@+id/priceEditText"
+        app:layout_constraintTop_toBottomOf="@+id/priceEditText" />
+
+    <ImageView
+        android:id="@+id/cameraClick"
+        android:layout_width="73dp"
+        android:layout_height="54dp"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/titleEditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewClickedPic"
+        app:srcCompat="@drawable/camera_icon" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

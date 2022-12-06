@@ -51,7 +51,6 @@ public class loginFirebase extends AppCompatActivity {
         LoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("HEY", "Shaina is logged in!!!!!!!!!!!!!!!!!!!!!!!!1");
                 startSignin();
             }
         });
@@ -68,6 +67,7 @@ public class loginFirebase extends AppCompatActivity {
             Toast.makeText(loginFirebase.this, "Fields are empty ", Toast.LENGTH_SHORT).show();
 
         } else {
+            Log.d("LOGINSIGNIN", email);
             mauth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
 
                 Log.d("EMAIL",  email);
@@ -81,6 +81,8 @@ public class loginFirebase extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), adminAddProducts.class ));
                     } else {
                         Toast.makeText(loginFirebase.this, "Logged in" + mauth.getCurrentUser(), Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(getApplicationContext(), dash.class ));
+
                     }
 
                 } else {
@@ -93,9 +95,9 @@ public class loginFirebase extends AppCompatActivity {
     public void onStart() {
         super.onStart();
 
-        if (mauth.getCurrentUser() != null) {
-            Toast.makeText(this, "User is already logged in !", Toast.LENGTH_SHORT).show();
-        }
+//        if (mauth.getCurrentUser() != null) {
+//            Toast.makeText(this, "User is already logged in !", Toast.LENGTH_SHORT).show();
+//        }
     }
 
 

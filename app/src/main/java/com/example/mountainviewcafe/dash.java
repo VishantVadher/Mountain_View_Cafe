@@ -33,11 +33,12 @@ public class dash extends AppCompatActivity {
 
 
     MyAdapter adapter;
-    private RecyclerView recyclerView;
 
     private FirebaseFirestore mFirestore;
     private FirebaseAuth mauth;
-    ArrayList<addProduct> myProductList = new ArrayList<>();
+    public ArrayList<addProduct> myProductList = new ArrayList<>();
+
+    String title="", image = "", description="", price = "", discount="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,32 +57,35 @@ public class dash extends AppCompatActivity {
                     return;
                 }
 
-                Log.d("SIZEE", "onEvent: " + queryDocumentSnapshots.size());
+                Log.d("SIZEE", "onEvent: " + queryDocumentSnapshots.size() );
 
                 for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-                    addProduct product = doc.toObject(addProduct.class);
-                    myProductList.add(product);
+//                    addProduct product = doc.toObject(addProduct.class);
+//                    myProductList.add(new addProduct(new addProduct("","","","",""));
+                    title = doc.get("title").toString();
+                    description = doc.get("description").toString();
+                    image = doc.get("image").toString();
+                    price = doc.get("price").toString();
+                    discount = doc.get("discount").toString();
+
+                    myProductList.add(new addProduct(title, description, image, price, discount));
+
+//                    myProductList.add(new addProduct(doc.get("title").toString(), doc.get("description").toString(),doc.get("image").toString(),doc.get("price").toString(),doc.get("discount").toString()));
                     Log.e("DOC", doc.get("title").toString() );
                     Log.e("myProductList", doc.toString() );
 
                 }
+
+                adapter = new MyAdapter(getApplicationContext(), myProductList);
+                // set up the RecyclerView
+                RecyclerView recyclerView = findViewById(R.id.rView);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+//        adapter.setClickListener(this);
+                recyclerView.setAdapter(adapter);
             }
         });
 
 
-        adapter = new MyAdapter(this, myProductList);
-        RecyclerView recyclerView = findViewById(R.id.rView);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(mLayoutManager);
-        adapter.setClickListener(this::onItemClick);
-        recyclerView.setAdapter(adapter);
-
-//        adapter = new MyAdapter(this, myProductList);
-//        // set up the RecyclerView
-//        RecyclerView recyclerView = findViewById(R.id.rView);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-////        adapter.setClickListener(this);
-//        recyclerView.setAdapter(adapter);
 
     }
 

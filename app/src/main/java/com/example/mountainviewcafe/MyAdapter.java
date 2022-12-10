@@ -1,6 +1,7 @@
 package com.example.mountainviewcafe;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -28,6 +30,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // data is passed into the constructor
     MyAdapter(Context context, List<addProduct> addProducts) {
         this.mInflater = LayoutInflater.from(context);
+//        this.mInflater = LayoutInflater.from(activity);
         this.productList = addProducts;
         Log.d("Adapter called", "MyAdapter : : : : ");
     }
@@ -53,20 +56,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 //        holder.carbs.setText(food.getCar() + "");
     }
 
-    @Override
-    public int getItemCount() {
-        return productList == null ? 0 : productList.size();
-    }
-
-
-
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView title, description, image, price, discount;
         public ConstraintLayout cardView;
 
         public ImageView imageView;
-
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -88,6 +83,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         return String.valueOf(productList.get(id));
     }
 
+    @Override
+    public int getItemCount() {
+        Log.e("getitemcount", "getitemcountcalled");
+        return productList.size();
+    }
 
     // allows clicks events to be caught
     void setClickListener(ItemClickListener itemClickListener) {

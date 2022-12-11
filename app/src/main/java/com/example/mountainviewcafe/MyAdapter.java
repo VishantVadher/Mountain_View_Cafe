@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,6 +26,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
+//    private final View.OnClickListener mOnClickListener = new MyOnClickListener();
+
     private List<addProduct> productList;
 
     // data is passed into the constructor
@@ -33,6 +36,28 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 //        this.mInflater = LayoutInflater.from(activity);
         this.productList = addProducts;
         Log.d("Adapter called", "MyAdapter : : : : ");
+    }
+
+    // stores and recycles views as they are scrolled off screen
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        TextView title, description, image, price, discount;
+        public ConstraintLayout cardView;
+        public ImageView imageView;
+        public Button addToCart;
+
+
+        ViewHolder(View itemView) {
+            super(itemView);
+            title = itemView.findViewById(R.id.titleProduct);
+            imageView = itemView.findViewById(R.id.imageProduct);
+            addToCart = itemView.findViewById(R.id.addToCart);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+        }
     }
 
     // inflates the row layout from xml when needed
@@ -50,31 +75,22 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         final addProduct product = productList.get(position);
 
         holder.title.setText(product.getTitle());
-//        Picasso.with(MyAdapter.this).load(product.getImage()).into(holder.imageView);
+//        holder.description.setText(product.getDescription());
 
-//        holder.cardView.setBackgroundColor(food.isSelected() ? Color.DKGRAY : Color.GRAY);
+        Log.e("IMAGEPICASSO",  product.getImage().toString() );
+
+        Picasso.get().setLoggingEnabled(true);
+        Picasso.get().load(product.getImage()).into(holder.imageView);
+
+//        holder.addToCart.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.e("POS", String.valueOf(position) );
+//            }
+//        });
+
+//        holder.cardView.setBackgroundColor(product.isSelected() ? Color.DKGRAY : Color.GRAY);
 //        holder.carbs.setText(food.getCar() + "");
-    }
-
-    // stores and recycles views as they are scrolled off screen
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView title, description, image, price, discount;
-        public ConstraintLayout cardView;
-
-        public ImageView imageView;
-
-        ViewHolder(View itemView) {
-            super(itemView);
-            title = itemView.findViewById(R.id.titleProduct);
-            imageView = itemView.findViewById(R.id.imageProduct);
-
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
-        }
     }
 
     // convenience method for getting data at click position

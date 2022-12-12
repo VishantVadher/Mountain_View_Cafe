@@ -2,7 +2,8 @@ package com.example.mountainviewcafe;
 
 public class addProduct {
 
-    public String title, description, image, price, discount;
+    public String title, description, image, price, discount, id;
+    public static boolean isSelected = false;
 
     public addProduct() {
 
@@ -54,5 +55,21 @@ public class addProduct {
 
     public void setDiscount(String discount) {
         this.discount = discount;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public static boolean isSelected() {
+        return isSelected;
+    }
+
+    public static void setSelected(boolean selected) {
+        isSelected = selected;
     }
 }

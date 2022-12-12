@@ -1,9 +1,8 @@
 package com.example.mountainviewcafe;
 
 
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -24,7 +22,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
 //    private List<String> mData;
     private LayoutInflater mInflater;
+    private Context adapterContext;
     private ItemClickListener mClickListener;
+    public String productID;
+    public String description;
+    public String price;
+
 
 //    private final View.OnClickListener mOnClickListener = new MyOnClickListener();
 
@@ -41,7 +44,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView title, description, image, price, discount;
-        public ConstraintLayout cardView;
+        public ConstraintLayout constraint;
         public ImageView imageView;
         public Button addToCart;
 
@@ -51,6 +54,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             title = itemView.findViewById(R.id.titleProduct);
             imageView = itemView.findViewById(R.id.imageProduct);
             addToCart = itemView.findViewById(R.id.addToCart);
+            constraint = itemView.findViewById(R.id.constraint);
             itemView.setOnClickListener(this);
         }
 
@@ -82,12 +86,39 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         Picasso.get().setLoggingEnabled(true);
         Picasso.get().load(product.getImage()).into(holder.imageView);
 
-//        holder.addToCart.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
+
+
+        holder.addToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 //                Log.e("POS", String.valueOf(position) );
-//            }
-//        });
+
+            }
+        });
+
+
+        holder.constraint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                addProduct.setSelected(!addProduct.isSelected());
+                Log.e("cardViewclick", "THIS : " + product.getId());
+                productID = product.getId().toString();
+                Intent intent = new Intent(holder.itemView.getContext(), detailView.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("id", product.getId());
+                holder.itemView.getContext().startActivity(intent);
+
+
+//                adapterContext.startActivity(new Intent(adapterContext, detailView.class));
+//                if(addProduct.isSelected()) {
+//                    productID += product.getId().trim();
+//                } else {
+//                    productID = "";
+//                }
+
+
+            }
+        });
 
 //        holder.cardView.setBackgroundColor(product.isSelected() ? Color.DKGRAY : Color.GRAY);
 //        holder.carbs.setText(food.getCar() + "");

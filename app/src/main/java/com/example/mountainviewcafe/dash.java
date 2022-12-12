@@ -35,7 +35,7 @@ public class dash extends AppCompatActivity {
 
     private FirebaseFirestore mFirestore;
     private FirebaseAuth mauth;
-    public ArrayList<addProduct> myProductList = new ArrayList<>();
+    public ArrayList<addProduct> myProductList;
 //    private ImageView imageView;
 //    String title="", image = "", description="", price = "", discount="";
 
@@ -56,7 +56,8 @@ public class dash extends AppCompatActivity {
 //            .load("https://images.unsplash.com/photo-1500100586562-f75ff6540087?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3589&q=80")
 //                .into(imageView);
 
-        Glide.with(this).load("https://images.unsplash.com/photo-1500100586562-f75ff6540087?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3589&q=80")
+        Glide.with(this)
+                .load("https://images.unsplash.com/photo-1500100586562-f75ff6540087?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3589&q=80")
                 .dontAnimate().into(imageView);
 
 
@@ -72,11 +73,12 @@ public class dash extends AppCompatActivity {
 
                 Log.d("SIZEE", "onEvent: " + queryDocumentSnapshots.size() );
 
+                myProductList = new ArrayList<>();
+
                 for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
 
-
-
                     addProduct product = doc.toObject(addProduct.class);
+                    product.setId(doc.getId());
                     myProductList.add(product);
 //                    myProductList.add(new addProduct(new addProduct("","","","",""));
 //                    title = doc.get("title").toString();
@@ -107,11 +109,14 @@ public class dash extends AppCompatActivity {
 
     public void onItemClick(View view, int position) {
         Log.e("onCLICKTEST", "onItemClick: " );
-        Toast.makeText(this, "You clicked "  + " on row number " + position, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "You clicked "  + " on row number " + position, Toast.LENGTH_SHORT).show();
 
+        String prodID =  adapter.productID;
+        Toast.makeText(this, "You clicked "  + prodID, Toast.LENGTH_SHORT).show();
 
-
-
+        Intent intent = new Intent(this, detailView.class);
+        intent.putExtra("id", prodID);
+        startActivity(intent);
     }
 
 

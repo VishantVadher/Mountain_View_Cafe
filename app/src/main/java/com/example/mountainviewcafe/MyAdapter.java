@@ -20,7 +20,7 @@ import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
-//    private List<String> mData;
+    //    private List<String> mData;
     private LayoutInflater mInflater;
     private Context adapterContext;
     private ItemClickListener mClickListener;

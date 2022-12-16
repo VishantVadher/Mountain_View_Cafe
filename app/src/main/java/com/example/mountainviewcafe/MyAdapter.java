@@ -1,6 +1,7 @@
 package com.example.mountainviewcafe;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -93,8 +94,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     // binds the data to the TextView in each row
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-
+    public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         final addProduct product = productList.get(position);
 
@@ -118,18 +118,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 mAuth = FirebaseAuth.getInstance();
                 mFirestore = FirebaseFirestore.getInstance();
                 String userid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                String docID;
                 cartList = new ArrayList<>();
-
-                Log.e("ISSELECTEDPRODUCT", "product.isSelected()  " + product.isSelected() );
-
-                Log.e("POSITION", String.valueOf(position));
-                Log.e("id", "onClick: "+ product.getId() );
-                Log.e("userid", "onClick: "+ userid );
 
                 cartAdd cartAdd = new cartAdd(product.getId(),userid,"1", product.getTitle(), product.getDiscount(),
                         product.getImage(), product.getDescription(), product.getPrice());
-                holder.addToCart.setEnabled(false);
+//                holder.addToCart.setEnabled(false);
+
                 mFirestore.collection("Cart").document().set(cartAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

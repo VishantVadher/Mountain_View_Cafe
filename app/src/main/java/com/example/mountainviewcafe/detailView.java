@@ -10,8 +10,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -39,6 +41,16 @@ public class detailView extends AppCompatActivity {
         mFirestore = FirebaseFirestore.getInstance();
         mauth = FirebaseAuth.getInstance();
 
+//        mActionBar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_action_back));
+//        mActionBar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //What to do on back clicked
+//            }
+//        });
+
+
+        String userid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         Intent idIntent = getIntent();
         id =  idIntent.getStringExtra("id");
         Log.e("idCAMETODETAIL", idIntent.getStringExtra("id"));
@@ -70,9 +82,22 @@ public class detailView extends AppCompatActivity {
                                     detailAddToCart.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
+                                            cartAdd cartAdd = new cartAdd(idIntent.getStringExtra("id"),userid.toString(),"1",  document.get("title").toString(),
+                                                    document.get("discount").toString(), document.get("image").toString(), document.get("description").toString(),
+                                                    document.get("price").toString());
 
-//                                            cartAdd cartAdd = new cartAdd(document.getId(),userid,"1", product.getTitle(), product.getDiscount(),
-//                                                    product.getImage(), product.getDescription(), product.getPrice());
+                                            mFirestore.collection("Cart").document().set(cartAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    Intent intent = new Intent(detailView.this, dash.class);
+                                                    startActivity(intent);
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.e("Error", "onFailure: " + e );
+                                                }
+                                            });
                                         }
                                     });
 

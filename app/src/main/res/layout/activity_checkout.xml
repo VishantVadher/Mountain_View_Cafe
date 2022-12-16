@@ -6,4 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".checkout">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="264dp"
+        android:layout_height="103dp"
+        android:layout_marginTop="300dp"
+        android:layout_marginEnd="76dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Success your order is placed!"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="122dp"
+        android:layout_marginBottom="43dp"
+        android:text="Return to Home"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

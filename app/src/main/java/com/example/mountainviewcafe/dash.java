@@ -1,6 +1,7 @@
 package com.example.mountainviewcafe;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,8 +41,6 @@ public class dash extends AppCompatActivity {
     private FirebaseFirestore mFirestore;
     private FirebaseAuth mauth;
     public ArrayList<addProduct> myProductList;
-//    private ImageView imageView;
-//    String title="", image = "", description="", price = "", discount="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +51,6 @@ public class dash extends AppCompatActivity {
         mauth = FirebaseAuth.getInstance();
 
         ImageView imageView = findViewById(R.id.imagePhoto);
-//        Picasso.get().setLoggingEnabled(true);
-//        Picasso.get()
-//                .load(")
-//                .transform(new RoundedCornersTransform()).into(imageView);
-
         Glide.with(this)
                 .load("https://images.unsplash.com/photo-1500100586562-f75ff6540087?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3589&q=80")
                 .transform(new CenterCrop(),new RoundedCorners(25))
@@ -72,9 +66,6 @@ public class dash extends AppCompatActivity {
                     Toast.makeText(dash.this, "Something is wrong!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                Log.d("SIZEE", "onEvent: " + queryDocumentSnapshots.size() );
-
                 myProductList = new ArrayList<>();
 
                 for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
@@ -82,8 +73,6 @@ public class dash extends AppCompatActivity {
                     addProduct product = doc.toObject(addProduct.class);
                     product.setId(doc.getId());
                     myProductList.add(product);
-                    Log.e("myProductList", doc.toString() );
-                    Log.e("document id ", doc.getId()  );
 
                 }
 

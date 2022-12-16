@@ -6,96 +6,114 @@
     android:layout_height="match_parent"
     tools:context=".adminAddProducts">
 
-    <Button
-        android:id="@+id/addProduct"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:fontFamily="@font/montserrat"
-        android:onClick="addProduct"
-        android:text="Add Product"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/discountEditText" />
-
     <ImageView
         android:id="@+id/viewClickedPic"
-        android:layout_width="207dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/cameraClick"
+        android:layout_width="411dp"
+        android:layout_height="329dp"
+        app:layout_constraintBottom_toTopOf="@+id/cardDetails"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <EditText
-        android:id="@+id/titleEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:ems="10"
-        android:fontFamily="@font/montserrat"
-        android:hint="Title"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/descEditText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cameraClick" />
-
-    <EditText
-        android:id="@+id/descEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="18dp"
-        android:ems="10"
-        android:fontFamily="@font/montserrat"
-        android:hint="Description"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/priceEditText"
-        app:layout_constraintStart_toStartOf="@+id/titleEditText"
-        app:layout_constraintTop_toBottomOf="@+id/titleEditText" />
-
-    <EditText
-        android:id="@+id/priceEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="2dp"
-        android:layout_marginBottom="20dp"
-        android:ems="10"
-        android:fontFamily="@font/montserrat"
-        android:hint="Price"
-        android:inputType="numberDecimal"
-        app:layout_constraintBottom_toTopOf="@+id/discountEditText"
-        app:layout_constraintEnd_toEndOf="@+id/descEditText"
-        app:layout_constraintTop_toBottomOf="@+id/descEditText" />
-
-    <EditText
-        android:id="@+id/discountEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
-        android:layout_marginBottom="81dp"
-        android:ems="10"
-        android:fontFamily="@font/montserrat"
-        android:hint="Discount"
-        android:inputType="numberSigned"
-        app:layout_constraintBottom_toTopOf="@+id/addProduct"
-        app:layout_constraintStart_toStartOf="@+id/priceEditText"
-        app:layout_constraintTop_toBottomOf="@+id/priceEditText" />
-
-    <ImageView
-        android:id="@+id/cameraClick"
-        android:layout_width="73dp"
-        android:layout_height="54dp"
-        android:layout_marginBottom="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/titleEditText"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardDetails"
+        android:layout_width="409dp"
+        android:layout_height="409dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:elevation="5dp"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewClickedPic"
-        app:srcCompat="@drawable/camera_icon" />
+        app:layout_constraintTop_toBottomOf="@+id/viewClickedPic">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/titleEditText"
+                android:layout_width="374dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:ems="10"
+                android:fontFamily="@font/montserrat"
+                android:hint="Title"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cameraClick" />
+
+            <EditText
+                android:id="@+id/descEditText"
+                android:layout_width="369dp"
+                android:layout_height="51dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:ems="10"
+                android:fontFamily="@font/montserrat"
+                android:hint="Description"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titleEditText" />
+
+            <EditText
+                android:id="@+id/discountEditText"
+                android:layout_width="186dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:ems="10"
+                android:fontFamily="@font/montserrat"
+                android:hint="Discount"
+                android:inputType="numberSigned"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/descEditText" />
+
+            <EditText
+                android:id="@+id/priceEditText"
+                android:layout_width="152dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="27dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:ems="10"
+                android:fontFamily="@font/montserrat"
+                android:hint="Price"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/discountEditText"
+                app:layout_constraintTop_toBottomOf="@+id/descEditText" />
+
+            <ImageView
+                android:id="@+id/cameraClick"
+                android:layout_width="68dp"
+                android:layout_height="43dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="171dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/camera_icon" />
+
+            <Button
+                android:id="@+id/addProduct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="128dp"
+                android:fontFamily="@font/montserrat"
+                android:onClick="addProduct"
+                android:text="Add Product"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/discountEditText" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

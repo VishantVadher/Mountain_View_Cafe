@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -92,22 +93,54 @@ public class register extends AppCompatActivity {
     public void onStart() {
         super.onStart();
 
-        if (mAuth.getCurrentUser() != null) {
-            Toast.makeText(this, "User is already logged in !", Toast.LENGTH_SHORT).show();
+//        if (mAuth.getCurrentUser() != null) {
+//            Toast.makeText(this, "User is already logged in !", Toast.LENGTH_SHORT).show();
+//        }
+    }
+
+    public boolean check() {
+        final String firstName = editTextFirstName.getText().toString().trim();
+        final String lastName = editTextLastName.getText().toString().trim();
+        final String email = editTextEmail.getText().toString().trim();
+        final String password = editTextPassword.getText().toString().trim();
+        final String phone = editTextPhone.getText().toString().trim();
+        boolean valid = true;
+
+        if (email.trim().isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            editTextEmail.setError("Enter Valid Email Address");
+            valid = false;
+        } else {
+            editTextEmail.setError(null);
         }
 
-        /*final EditText dob = (EditText) findViewById(R.id.birthday);
-        final TextView age = (TextView)findViewById(R.id.age);
-        dob.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    DateDialog dialog = new DateDialog(v);
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    dialog.show(ft, "DatePicker");
-                }
+        if (phone.trim().isEmpty() || phone.length() != 10) {
+            editTextPhone.setError("Enter Valid Phone Number");
+            valid = false;
+        } else {
+            editTextPhone.setError(null);
+        }
 
-            }
-        });*/
+        if (password.trim().isEmpty() || password.length() < 6) {
+            editTextPassword.setError("Enter Valid Password more than 6 Alphabets");
+            valid = false;
+        } else {
+            editTextPassword.setError(null);
+        }
+
+        if (firstName.trim().isEmpty() || firstName.matches("\\d+(?:\\.\\d+)?")) {
+            editTextFirstName.setError("Please Enter valid First Name");
+            valid = false;
+        } else {
+            editTextFirstName.setError(null);
+        }
+
+        if (lastName.trim().isEmpty() || lastName.matches("\\d+(?:\\.\\d+)?")) {
+            editTextLastName.setError("Please Enter valid Last Name");
+            valid = false;
+        } else {
+            editTextLastName.setError(null);
+        }
+
+        return valid;
     }
 }

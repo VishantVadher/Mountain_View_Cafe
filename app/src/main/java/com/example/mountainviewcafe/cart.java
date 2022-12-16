@@ -95,7 +95,7 @@ public class cart extends AppCompatActivity {
         buttonCheckOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), checkout.class);
+                Intent intent = new Intent(getApplicationContext(), AddressActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }

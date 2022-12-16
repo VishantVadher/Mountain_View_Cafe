@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -73,11 +74,7 @@ public class loginFirebase extends AppCompatActivity {
         String email = editTextEmail.getText().toString();
         String password = editTextPassword.getText().toString();
 
-        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
-            Toast.makeText(loginFirebase.this, "Fields are empty ", Toast.LENGTH_SHORT).show();
-
-        } else {
-            Log.d("LOGINSIGNIN", email);
+        if (validationCheck()) {
             mauth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
 
                 Log.d("EMAIL",  email);
@@ -99,6 +96,8 @@ public class loginFirebase extends AppCompatActivity {
                     Toast.makeText(loginFirebase.this, "User account dosen't exist", Toast.LENGTH_SHORT).show();
                 }
             });
+        } else {
+            Toast.makeText(this, "Please check for errors.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -109,6 +108,30 @@ public class loginFirebase extends AppCompatActivity {
 //            Toast.makeText(this, "User is already logged in !", Toast.LENGTH_SHORT).show();
 //        }
     }
+
+    public boolean validationCheck() {
+
+        final String email = editTextEmail.getText().toString().trim();
+        final String password = editTextPassword.getText().toString().trim();
+        boolean valid = true;
+
+        if (email.trim().isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            editTextEmail.setError("Enter Valid Email Address");
+            valid = false;
+        } else {
+            editTextEmail.setError(null);
+        }
+
+        if (password.trim().isEmpty() || password.length() < 6) {
+            editTextPassword.setError("Enter Valid Password more than 6 Alphabets");
+            valid = false;
+        } else {
+            editTextPassword.setError(null);
+        }
+
+        return valid;
+    }
+
 
 
 }

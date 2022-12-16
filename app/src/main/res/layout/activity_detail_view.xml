@@ -62,10 +62,11 @@
 
             <Button
                 android:id="@+id/detailAddToCart"
-                android:layout_width="136dp"
-                android:layout_height="56dp"
+                android:layout_width="169dp"
+                android:layout_height="58dp"
                 android:layout_marginTop="28dp"
                 android:layout_marginEnd="24dp"
+                android:fontFamily="@font/montserrat"
                 android:text="Add to cart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/detailDesc" />

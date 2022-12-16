@@ -2,12 +2,36 @@ package com.example.mountainviewcafe;
 
 public class addProduct {
 
-    public String title, description, image, price, discount, id;
+    public String title, description, image, price, discount, id, quantity;
     public static boolean isSelected = false;
 
     public addProduct() {
 
     }
+
+    public static boolean isIsSelected() {
+        return isSelected;
+    }
+
+    public static void setIsSelected(boolean isSelected) {
+        addProduct.isSelected = isSelected;
+    }
+//
+//    public String getQuantity() {
+//        return quantity;
+//    }
+//
+//    public void setQuantity(String quantity) {
+//        this.quantity = quantity;
+//    }
+
+//    public static boolean isIsSelected() {
+//        return isSelected;
+//    }
+//
+//    public static void setIsSelected(boolean isSelected) {
+//        addProduct.isSelected = isSelected;
+//    }
 
     public addProduct(String title, String description, String image, String price, String discount) {
         this.title = title;

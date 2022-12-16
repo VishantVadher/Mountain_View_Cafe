@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -62,9 +63,18 @@ public class detailView extends AppCompatActivity {
 
                                     detailTitle.setText(document.get("title").toString());
                                     detailDesc.setText(document.get("description").toString());
-                                    detailPrice.setText(document.get("price").toString());
+                                    detailPrice.setText("$" + document.get("price").toString());
 
                                     Picasso.get().load(document.get("image").toString()).into(detailImage);
+
+                                    detailAddToCart.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+
+//                                            cartAdd cartAdd = new cartAdd(document.getId(),userid,"1", product.getTitle(), product.getDiscount(),
+//                                                    product.getImage(), product.getDescription(), product.getPrice());
+                                        }
+                                    });
 
                                 }
                             } else {
@@ -72,30 +82,6 @@ public class detailView extends AppCompatActivity {
                             }
                         }
                     });
-
-
-
-//            DocumentReference docRef = mFirestore.collection("products").document(id);
-//            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                @Override
-//                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                    if (task.isSuccessful()) {
-//                        DocumentSnapshot document = task.getResult();
-//                        if (document.exists()) {
-//                            Log.e("DETAILTASK", task.toString() );
-//
-////                            Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-//                        } else {
-////                            Log.d(TAG, "No such document");
-//                        }
-//                    } else {
-////                        Log.d(TAG, "get failed with ", task.getException());
-//                    }
-//                }
-//            });
-
-
-
 
         } else {
         }

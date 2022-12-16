@@ -23,8 +23,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class loginFirebase extends AppCompatActivity {
 
-
-
     private EditText editTextEmail;
     private EditText editTextPassword;
     private TextView createAccount;

@@ -1,6 +1,7 @@
 package com.example.mountainviewcafe;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,17 +11,22 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.RoundedCorner;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import java.util.ArrayList;
 
@@ -48,15 +54,13 @@ public class dash extends AppCompatActivity {
         ImageView imageView = findViewById(R.id.imagePhoto);
 //        Picasso.get().setLoggingEnabled(true);
 //        Picasso.get()
-//                .load(R.drawable.camera_icon)
-//                .into(imageView);
-//        Glide.with(this)
-//            .load("https://images.unsplash.com/photo-1500100586562-f75ff6540087?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3589&q=80")
-//                .into(imageView);
+//                .load(")
+//                .transform(new RoundedCornersTransform()).into(imageView);
 
         Glide.with(this)
                 .load("https://images.unsplash.com/photo-1500100586562-f75ff6540087?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3589&q=80")
-                .dontAnimate().into(imageView);
+                .transform(new CenterCrop(),new RoundedCorners(25))
+                .into(imageView);
 
 
 
@@ -78,15 +82,6 @@ public class dash extends AppCompatActivity {
                     addProduct product = doc.toObject(addProduct.class);
                     product.setId(doc.getId());
                     myProductList.add(product);
-//                    myProductList.add(new addProduct(new addProduct("","","","",""));
-//                    title = doc.get("title").toString();
-//                    description = doc.get("description").toString();
-//                    image = doc.get("image").toString();
-//                    price = doc.get("price").toString();
-//                    discount = doc.get("discount").toString();
-//                    myProductList.add(new addProduct(title, description, image, price, discount));
-//                    myProductList.add(new addProduct(doc.get("title").toString(), doc.get("description").toString(),doc.get("image").toString(),doc.get("price").toString(),doc.get("discount").toString()));
-//                    Log.e("DOC", doc.get("id").toString() );
                     Log.e("myProductList", doc.toString() );
                     Log.e("document id ", doc.getId()  );
 
@@ -95,9 +90,8 @@ public class dash extends AppCompatActivity {
                 adapter = new MyAdapter(getApplicationContext(), myProductList);
                 // set up the RecyclerView
                 RecyclerView recyclerView = findViewById(R.id.rView);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-//                adapter.setClickListener(dash.this::onItemClick);
-
+                recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+                adapter.setClickListener(dash.this::onItemClick);
                 recyclerView.setAdapter(adapter);
             }
         });

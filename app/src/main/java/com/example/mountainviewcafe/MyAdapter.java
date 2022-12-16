@@ -3,6 +3,7 @@ package com.example.mountainviewcafe;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +11,26 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
@@ -29,9 +44,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public String price;
 
 
+    private FirebaseFirestore mFirestore;
+    private FirebaseAuth mAuth;
+
+
 //    private final View.OnClickListener mOnClickListener = new MyOnClickListener();
 
     private List<addProduct> productList;
+    private List<cartAdd> cartList;
 
     // data is passed into the constructor
     MyAdapter(Context context, List<addProduct> addProducts) {
@@ -83,15 +103,44 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         Log.e("IMAGEPICASSO",  product.getImage().toString() );
 
-        Picasso.get().setLoggingEnabled(true);
         Picasso.get().load(product.getImage()).into(holder.imageView);
 
-
+//        Glide.with()
+//                .load("https://images.unsplash.com/photo-1500100586562-f75ff6540087?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3589&q=80")
+//                .transform(new CenterCrop(),new RoundedCorners(25))
+//                .into(holder.imageView);
 
         holder.addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Log.e("POS", String.valueOf(position) );
+
+                addProduct.setSelected(!addProduct.isSelected());
+                mAuth = FirebaseAuth.getInstance();
+                mFirestore = FirebaseFirestore.getInstance();
+                String userid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                String docID;
+                cartList = new ArrayList<>();
+
+                Log.e("ISSELECTEDPRODUCT", "product.isSelected()  " + product.isSelected() );
+
+                Log.e("POSITION", String.valueOf(position));
+                Log.e("id", "onClick: "+ product.getId() );
+                Log.e("userid", "onClick: "+ userid );
+
+                cartAdd cartAdd = new cartAdd(product.getId(),userid,"1", product.getTitle(), product.getDiscount(),
+                        product.getImage(), product.getDescription(), product.getPrice());
+                holder.addToCart.setEnabled(false);
+                mFirestore.collection("Cart").document().set(cartAdd).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+//                        holder.addToCart.setText("Added");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e("Error", "onFailure: " + e );
+                    }
+                });
 
             }
         });
